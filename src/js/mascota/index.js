@@ -136,8 +136,9 @@ const guardarmascota = async (e) => {
         // alert(mensaje)
         // console.log(data);
         if (codigo == 1 && respuesta.status == 200) {
-            getMascota();
             formulario.reset();
+            getMascota();
+           
         } else {
             console.log(detalle);
         }

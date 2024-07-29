@@ -2,8 +2,7 @@
 require '../../models/cita.php';
 header('Content-Type: application/json; charset=UTF-8');
 
-$_POST['cli_fecha'] = str_replace('T',' ', $_POST['cli_fecha']);
-
+$_POST['cit_fecha'] = date('Y-m-d H:i', strtotime($_POST['cit_fecha']));
 $metodo = $_SERVER['REQUEST_METHOD'];
 $tipo = $_REQUEST['tipo'] ?? null; 
 
@@ -43,7 +42,7 @@ try {
         case 'GET':
             http_response_code(200);
             $cita = new cita($_GET);
-            $citas = $cita->buscar();
+            $citas = $cita->MostrarInfo();
             echo json_encode($citas);
             break;
         default:

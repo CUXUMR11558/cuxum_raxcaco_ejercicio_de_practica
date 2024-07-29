@@ -14,11 +14,11 @@ btnCancelar.parentElement.style.display = 'none';
 const getCita = async (alerta='si') => {
 
     const fecha = formulario.cit_fecha.value;
-    const hora  = formulario.cit_hora.value;
-    const cliente = formulario.cit_cliente.value;
-    const mascota = formulario.cit_mascota.value;
+    const pais  = formulario.cit_pais.value;
+    const cliente = formulario.cliente_nombre.value;
+    const mascota = formulario.mascota_nombre.value;
 
-    const url = `/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php?cit_fecha=${fecha}&cit_hora=${hora}&cit_cliente=${cliente}&cit_mascota=${mascota}`;
+    const url = `/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php?cit_fecha=${fecha}&cit_pais=${pais}&cliente_nombre=${cliente}&mascota_nombre=${mascota}`;
     const config = {
         method: 'GET'
     }
@@ -60,9 +60,9 @@ const getCita = async (alerta='si') => {
 
                     celda1.innerText = contador;
                     celda2.innerText = cita.cit_fecha;
-                    celda3.innerText = cita.cit_hora;
-                    celda4.innerText = cita.cit_cliente;
-                    celda5.innerText = cita.cit_mascota;
+                    celda3.innerText = cita.cit_pais;
+                    celda4.innerText = cita.cliente_nombre;
+                    celda5.innerText = cita.mascota_nombre;
 
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
@@ -147,8 +147,9 @@ const guardarcita = async (e) => {
         // alert(mensaje)
         console.log(data);
         if (codigo == 1 && respuesta.status == 200) {
-            getCita(alerta='no');
             formulario.reset();
+            getCita(alerta='no');
+           
         } else {
             console.log(detalle);
         }
@@ -164,9 +165,9 @@ const guardarcita = async (e) => {
 const llenardatos =(cita) => {
     formulario.cit_codigo.value = cita.cit_codigo
     formulario.cit_fecha.value = cita.cit_fecha
-    formulario.cit_hora.value = cita.cit_hora
-    formulario.cit_cliente.value = cita.cit_cliente
-    formulario.cit_mascota.value = cita.cit_mascota
+    formulario.cit_pais.value = cita.cit_pais
+    formulario.cliente_nombre.value = cita.cliente_nombre
+    formulario.mascota_nombre.value = cita.mascota_nombre
     btnBuscar.parentElement.style.display = 'none'
     btnGuardar.parentElement.style.display = 'none'
     btnLimpiar.parentElement.style.display = 'none'

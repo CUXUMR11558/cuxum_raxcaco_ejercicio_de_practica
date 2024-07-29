@@ -6,7 +6,8 @@ require '../../models/mascota.php';
 
 header('Content-Type: application/json; charset=UTF-8');
 
-$_POST['mas_fecha_nacimiento'] = str_replace('T',' ', $_POST['mas_fecha_nacimineto']);
+$_POST['mas_fecha_nacimiento'] = date('Y-m-d H:i', strtotime($_POST['mas_fecha_nacimiento']));
+
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 $tipo = $_REQUEST['tipo'];
