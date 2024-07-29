@@ -38,7 +38,7 @@ class mascota extends Conexion
             $sql .= " and mas_raza like '%$this->mas_raza%' ";
         }
         if ($this->mas_fecha_nacimiento != '') {
-            $sql .= " and mas_fecha_nacimiento like '%$this->mas_fecha_nacimiento%'";
+            $sql .= " and mas_fecha_nacimiento = $this->mas_fecha_nacimiento";
         }
 
         if ($this->mas_codigo != null) {

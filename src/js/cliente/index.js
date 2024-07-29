@@ -13,7 +13,6 @@ btnCancelar.parentElement.style.display = 'none';
 
 const getCliente = async (alerta='si') => {
 
-
     const nombre = formulario.cli_nombre.value;
     const sexo  = formulario.cli_sexo.value;
     const telefono = formulario.cli_telefono.value;
@@ -23,16 +22,14 @@ const getCliente = async (alerta='si') => {
     const config = {
         method: 'GET'
     }
-    
-
+      
     try {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         tablacliente.tBodies[0].innerHTML = ''
-        const fragment = document.createDocumentFragment();
-        let contador = 1;
-        console.log(data);
-        if (respuesta.status == 200 ) {
+        const fragment = document.createDocumentFragment()
+        let contador = 1
+        if (respuesta.status == 200) {
             if(alerta=='si'){
             Swal.mixin({
                 toast: true,
@@ -41,14 +38,13 @@ const getCliente = async (alerta='si') => {
                 timer: 3000,
                 timerProgressBar: true,
                 icon: "success",
-                title: 'Datos enonctrados',
+                title: 'cliente encontrado',
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
         }
-
             if (data.length > 0) {
                 data.forEach(cliente => {
                     const tr = document.createElement('tr')
@@ -67,7 +63,7 @@ const getCliente = async (alerta='si') => {
                     celda3.innerText = cliente.cli_sexo;
                     celda4.innerText = cliente.cli_telefono;
                     celda5.innerText = cliente.cli_pais;
-                   
+
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
                     buttonModificar.addEventListener('click',()=>llenardatos(cliente))
@@ -77,8 +73,8 @@ const getCliente = async (alerta='si') => {
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
                     buttonEliminar.addEventListener('click', () => eliminar(cliente.cli_codigo));
 
-                    celda4.appendChild(buttonModificar)
-                    celda5.appendChild(buttonEliminar)
+                    celda6.appendChild(buttonModificar)
+                    celda7.appendChild(buttonEliminar)
 
                     tr.appendChild(celda1)
                     tr.appendChild(celda2)
@@ -87,7 +83,6 @@ const getCliente = async (alerta='si') => {
                     tr.appendChild(celda5)
                     tr.appendChild(celda6)
                     tr.appendChild(celda7)
-                
                     fragment.appendChild(tr);
 
                     contador++
@@ -96,7 +91,7 @@ const getCliente = async (alerta='si') => {
             } else {
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
-                td.innerText = 'No hay clientes disponibles'
+                td.innerText = 'No hay areas disponibles'
                 td.colSpan = 7;
 
                 tr.appendChild(td)
@@ -111,6 +106,7 @@ const getCliente = async (alerta='si') => {
         console.log(error);
     }
 }
+
 
 getCliente();
 
@@ -273,9 +269,6 @@ const cancelar= async (e) => {
 
 
 
-
-
-///////eliminar 
 
 
 

@@ -1,31 +1,36 @@
-const btnGuardar = document.getElementById('btnGuardar')
-const btnModificar = document.getElementById('btnModificar')
-const btnBuscar = document.getElementById('btnBuscar')
-const btnCancelar = document.getElementById('btnCancelar')
-const btnLimpiar = document.getElementById('btnLimpiar')
-const tablamascota = document.getElementById('tablamascota')
-const formulario = document.querySelector('form')
 
-btnModificar.parentElement.style.display = 'none'
-btnCancelar.parentElement.style.display = 'none'
 
-const getMascota = async () => {
-    const nombre = formulario.mas_nombre.value
-    const raza = formulario.mas_raza.value
-    const fecha = formulario.mas_nombre.value
-    const url = `/cuxum_raxcaco_ejercicio_de_practica/controllers/mascota/index.php?mas_nombre=${nombre}&mas_raza=${raza}&mas_fecha_nacimiento=${fecha}`
+const btnGuardar = document.getElementById('btnGuardar');
+const btnModificar = document.getElementById('btnModificar');
+const btnBuscar = document.getElementById('btnBuscar');
+const btnCancelar = document.getElementById('btnCancelar');
+const btnLimpiar = document.getElementById('btnLimpiar');
+const tablacita= document.getElementById('tablacita');
+const formulario = document.querySelector('form');
+
+btnModificar.parentElement.style.display = 'none';
+btnCancelar.parentElement.style.display = 'none';
+
+const getCita = async (alerta='si') => {
+
+    const fecha = formulario.cit_fecha.value;
+    const hora  = formulario.cit_hora.value;
+    const cliente = formulario.cit_cliente.value;
+    const mascota = formulario.cit_mascota.value;
+
+    const url = `/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php?cit_fecha=${fecha}&cit_hora=${hora}&cit_cliente=${cliente}&cit_mascota=${mascota}`;
     const config = {
         method: 'GET'
     }
-
+      
     try {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        console.log(data)
-        tablamascota.tBodies[0].innerHTML = ''
+        tablacita.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment()
-        let contador = 1;
+        let contador = 1
         if (respuesta.status == 200) {
+            if(alerta=='si'){
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -33,15 +38,15 @@ const getMascota = async () => {
                 timer: 3000,
                 timerProgressBar: true,
                 icon: "success",
-                title: 'Mascotas encontrados',
+                title: 'citas encontrado',
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
-
+        }
             if (data.length > 0) {
-                data.forEach(mascota => {
+                data.forEach(cita => {
                     const tr = document.createElement('tr')
                     const celda1 = document.createElement('td')
                     const celda2 = document.createElement('td')
@@ -49,26 +54,27 @@ const getMascota = async () => {
                     const celda4 = document.createElement('td')
                     const celda5 = document.createElement('td')
                     const celda6 = document.createElement('td')
+                    const celda7 = document.createElement('td')
                     const buttonModificar = document.createElement('button')
                     const buttonEliminar = document.createElement('button')
 
                     celda1.innerText = contador;
-                    celda2.innerText = mascota.mas_nombre;
-                    celda3.innerText = mascota.mas_raza;
-                    celda4.innerText = mascota.mas_fecha_nacimiento;
+                    celda2.innerText = cita.cit_fecha;
+                    celda3.innerText = cita.cit_hora;
+                    celda4.innerText = cita.cit_cliente;
+                    celda5.innerText = cita.cit_mascota;
 
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
-                    buttonModificar.addEventListener('click',()=>llenardatos(mascota))
+                    buttonModificar.addEventListener('click',()=>llenardatos(cita))
 
 
                     buttonEliminar.textContent = 'Eliminar'
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
-                    buttonEliminar.addEventListener('click', () => eliminar(mascota.mas_codigo));
+                    buttonEliminar.addEventListener('click', () => eliminar(cita.cit_codigo));
 
-
-                    celda5.appendChild(buttonModificar)
-                    celda6.appendChild(buttonEliminar)
+                    celda6.appendChild(buttonModificar)
+                    celda7.appendChild(buttonEliminar)
 
                     tr.appendChild(celda1)
                     tr.appendChild(celda2)
@@ -76,6 +82,7 @@ const getMascota = async () => {
                     tr.appendChild(celda4)
                     tr.appendChild(celda5)
                     tr.appendChild(celda6)
+                    tr.appendChild(celda7)
                     fragment.appendChild(tr);
 
                     contador++
@@ -84,8 +91,8 @@ const getMascota = async () => {
             } else {
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
-                td.innerText = 'No hay mascotas disponibles'
-                td.colSpan = 6;
+                td.innerText = 'No hay areas disponibles'
+                td.colSpan = 7;
 
                 tr.appendChild(td)
                 fragment.appendChild(tr)
@@ -94,23 +101,26 @@ const getMascota = async () => {
             console.log('hola');
         }
 
-        tablamascota.tBodies[0].appendChild(fragment)
+        tablacita.tBodies[0].appendChild(fragment)
     } catch (error) {
         console.log(error);
     }
 }
 
-getMascota();
+
+getCita();
 
 
-const guardarmascota = async (e) => {
+const guardarcita = async (e) => {
     e.preventDefault();
     btnGuardar.disabled = true;
 
-    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/mascota/index.php'
+    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php'
     const formData = new FormData(formulario)
+
     formData.append('tipo', 1)
-    formData.delete('mas_codigo')
+    formData.delete('pue_codigo')
+
     const config = {
         method: 'POST',
         body: formData
@@ -119,6 +129,7 @@ const guardarmascota = async (e) => {
     try {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
+        console.log(data)
         const { mensaje, codigo, detalle } = data
         Swal.mixin({
             toast: true,
@@ -134,9 +145,9 @@ const guardarmascota = async (e) => {
             }
         }).fire();
         // alert(mensaje)
-        // console.log(data);
+        console.log(data);
         if (codigo == 1 && respuesta.status == 200) {
-            getMascota();
+            getCita(alerta='no');
             formulario.reset();
         } else {
             console.log(detalle);
@@ -150,12 +161,12 @@ const guardarmascota = async (e) => {
 
 
 
-
-const llenardatos =(mascota) => {
-    formulario.mas_codigo.value = mascota.mas_codigo
-    formulario.mas_nombre.value = mascota.mas_nombre
-    formulario.mas_raza.value = mascota.mas_raza
-    formulario.mas_fecha_nacimiento.value = mascota.mas_fecha_nacimiento
+const llenardatos =(cita) => {
+    formulario.cit_codigo.value = cita.cit_codigo
+    formulario.cit_fecha.value = cita.cit_fecha
+    formulario.cit_hora.value = cita.cit_hora
+    formulario.cit_cliente.value = cita.cit_cliente
+    formulario.cit_mascota.value = cita.cit_mascota
     btnBuscar.parentElement.style.display = 'none'
     btnGuardar.parentElement.style.display = 'none'
     btnLimpiar.parentElement.style.display = 'none'
@@ -163,11 +174,11 @@ const llenardatos =(mascota) => {
     btnCancelar.parentElement.style.display = ''
 }
 
-const modificar= async (alert='no') => {
+const modificar= async (e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/mascotas/index.php'
+    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php'
     const formData = new FormData(formulario)
     formData.append('tipo', 2)
     const config = {
@@ -189,14 +200,14 @@ const modificar= async (alert='no') => {
                 timer: 3000,
                 timerProgressBar: true,
                 icon: "success",
-                title: mensaje,
+                title: "modificado correctamente",
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
             formulario.reset()
-            getMascota(); 
+            getCita(alerta='no'); 
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
             btnLimpiar.parentElement.style.display = ''
@@ -212,7 +223,7 @@ const modificar= async (alert='no') => {
                 timer: 3000,
                 timerProgressBar: true,
                 icon: "error",
-                title: 'Error al guardar',
+                title: 'Error al modificar',
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
@@ -260,18 +271,15 @@ const cancelar= async (e) => {
 
 
 
-///////eliminar 
-
-
 
 const eliminar = async (ID) => {
     console.log(ID)
     const formData = new FormData();
     formData.append('tipo', 3);
-    formData.append('mascota_codigo', ID);
+    formData.append('cli_codigo', ID);
     
     console.log(formData)
-    const url = '/cuxum_raxcaco_is2_crudjs/controllers/mascotas/index.php';
+    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/cita/index.php';
     const config = {
         method: 'POST',
         body: formData
@@ -296,7 +304,7 @@ const eliminar = async (ID) => {
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
-            getMascota();
+            getCita(alerta='no');
         } else {
             console.log('Error:', detalle);
             Swal.mixin({
@@ -336,7 +344,8 @@ const eliminar = async (ID) => {
 
 
 
-formulario.addEventListener('submit',guardarmascota)
-btnBuscar.addEventListener('click',getMascota)
+formulario.addEventListener('submit',guardarcita)
+btnBuscar.addEventListener('click',getCita)
 btnModificar.addEventListener('click',modificar)   
 btnCancelar.addEventListener('click', cancelar)   
+ 

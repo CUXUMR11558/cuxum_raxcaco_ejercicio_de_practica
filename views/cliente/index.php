@@ -5,7 +5,7 @@
     <h1 class="text-center">REGISTROS DE CLIENTES</h1>
     <div class="row justify-content-center mb-3">
         <form class="col-lg-8 border bg-light p-3">
-            <input type="hidden" name="cli_codigo" id="clie_codigo">
+            <input type="hidden" name="cli_codigo" id="cli_codigo">
 
             <div class="row">
                 <div class="col mb-3">
@@ -86,3 +86,4 @@
 
 <script defer src="../../src/js/funciones.js"></script>
 <script defer src="../../src/js/cliente/index.js"></script>
+<?php include_once '../../includes/footer.php' ?>

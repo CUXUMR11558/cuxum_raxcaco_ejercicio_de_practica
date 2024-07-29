@@ -34,18 +34,18 @@ class cliente extends Conexion
         $sql = "SELECT * from clientes where cli_situacion = 1 ";
 
         if ($this->cli_nombre != '') {
-            $sql .= " and cli_nombre like '%$this->cli_nombre%' ";
+            $sql .= " and cli_nombre like '%$this->cli_nombre%'";
         }
 
         if ($this->cli_sexo != '') {
-            $sql .= " and cli_sexo like '%$this->cli_sexo%' ";
+            $sql .= " and cli_sexo like '%$this->cli_sexo%'";
         }
         if ($this->cli_telefono != '') {
             $sql .= " and cli_telefono = $this->cli_telefono ";
         }
 
         if ($this->cli_pais != '') {
-            $sql .= " and cli_pais like '%$this->cli_pais%' ";
+            $sql .= " and cli_pais like '%$this->cli_pais%'";
         }
         
 
