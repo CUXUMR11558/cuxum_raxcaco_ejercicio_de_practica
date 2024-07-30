@@ -9,7 +9,7 @@ const formulario = document.querySelector('form')
 btnModificar.parentElement.style.display = 'none'
 btnCancelar.parentElement.style.display = 'none'
 
-const getMascota = async () => {
+const getMascota = async (alerta='si') => {
     const nombre = formulario.mas_nombre.value
     const raza = formulario.mas_raza.value
     const fecha = formulario.mas_nombre.value
@@ -26,6 +26,7 @@ const getMascota = async () => {
         const fragment = document.createDocumentFragment()
         let contador = 1;
         if (respuesta.status == 200) {
+            if(alerta=='si'){
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -39,6 +40,7 @@ const getMascota = async () => {
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
+        }
 
             if (data.length > 0) {
                 data.forEach(mascota => {
@@ -137,7 +139,7 @@ const guardarmascota = async (e) => {
         // console.log(data);
         if (codigo == 1 && respuesta.status == 200) {
             formulario.reset();
-            getMascota();
+            getMascota(alerta='no');
            
         } else {
             console.log(detalle);
@@ -164,11 +166,11 @@ const llenardatos =(mascota) => {
     btnCancelar.parentElement.style.display = ''
 }
 
-const modificar= async (alert='no') => {
+const modificar= async (e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/mascotas/index.php'
+    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/mascota/index.php'
     const formData = new FormData(formulario)
     formData.append('tipo', 2)
     const config = {
@@ -182,7 +184,7 @@ const modificar= async (alert='no') => {
         const data = await respuesta.json();
         console.log('Respuesta recibida:', data);
         const { mensaje, codigo, detalle } = data;
-        if (respuesta.ok && codigo === 2) {
+        if (respuesta.ok && codigo == 2) {
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -197,7 +199,7 @@ const modificar= async (alert='no') => {
                 }
             }).fire();
             formulario.reset()
-            getMascota(); 
+            getMascota(alerta='no'); 
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
             btnLimpiar.parentElement.style.display = ''
@@ -213,7 +215,7 @@ const modificar= async (alert='no') => {
                 timer: 3000,
                 timerProgressBar: true,
                 icon: "error",
-                title: 'Error al guardar',
+                title: 'Error al modificar',
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
@@ -269,10 +271,10 @@ const eliminar = async (ID) => {
     console.log(ID)
     const formData = new FormData();
     formData.append('tipo', 3);
-    formData.append('mascota_codigo', ID);
+    formData.append('mas_codigo', ID);
     
     console.log(formData)
-    const url = '/cuxum_raxcaco_is2_crudjs/controllers/mascotas/index.php';
+    const url = '/cuxum_raxcaco_ejercicio_de_practica/controllers/mascota/index.php';
     const config = {
         method: 'POST',
         body: formData
@@ -297,7 +299,7 @@ const eliminar = async (ID) => {
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             }).fire();
-            getMascota();
+            getMascota(alerta='no');
         } else {
             console.log('Error:', detalle);
             Swal.mixin({

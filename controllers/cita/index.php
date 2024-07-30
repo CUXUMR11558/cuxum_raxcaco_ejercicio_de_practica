@@ -3,6 +3,7 @@ require '../../models/cita.php';
 header('Content-Type: application/json; charset=UTF-8');
 
 $_POST['cit_fecha'] = date('Y-m-d H:i', strtotime($_POST['cit_fecha']));
+
 $metodo = $_SERVER['REQUEST_METHOD'];
 $tipo = $_REQUEST['tipo'] ?? null; 
 
@@ -20,7 +21,7 @@ try {
                     $codigo = 1;
                     break;
                 case '2':
-                    $ejecucion = $cita->modificar();
+                    $ejecucion = $cita->MostrarInfo();
                     $mensaje = "Modificado correctamente";
                     $codigo = 2;
                     break;

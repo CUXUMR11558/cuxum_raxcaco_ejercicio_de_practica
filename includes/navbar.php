@@ -37,23 +37,20 @@
 
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="../../cuxum_raxcaco_ejercicio_de_practica/views/cliente/index.php">Página Inicio</a>
+    <a class="navbar-brand" href="/cuxum_raxcaco_ejercicio_de_practica/views/inicion/index.php">Página Inicio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link"  href="../views/cliente/index.php">Cliente</a>
+          <a class="nav-link" href="/cuxum_raxcaco_ejercicio_de_practica/views/cliente/index.php">Cliente</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="../views/mascota/index.php">Mascotas</a>
+          <a class="nav-link" href="/cuxum_raxcaco_ejercicio_de_practica/views/mascota/index.php">Mascotas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="../views/cita/index.php">Citas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"  href="#">Home</a>
+          <a class="nav-link" href="/cuxum_raxcaco_ejercicio_de_practica/views/cita/index.php">Citas</a>
         </li>
       </ul>
     </div>

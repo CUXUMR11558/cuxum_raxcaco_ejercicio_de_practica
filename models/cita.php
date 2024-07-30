@@ -32,23 +32,24 @@ class cita extends Conexion
     {
 
         $sql = "SELECT 
-    clientes.cli_nombre AS cliente_nombre,
-    mascotas.mas_nombre AS mascota_nombre,
-    citas.cit_fecha,
-    citas.cit_pais,
-    citas.cit_situacion
+    citas.cit_codigo AS cit_codigo, 
+    clientes.cli_nombre AS cit_cliente, 
+    mascotas.mas_nombre AS cit_mascota, 
+    citas.cit_fecha AS cit_fecha, 
+    citas.cit_pais AS cit_pais
 FROM 
     citas
 INNER JOIN 
     clientes ON citas.cit_cliente = clientes.cli_codigo
 INNER JOIN 
-    mascotas ON citas.cit_mascota = mascotas.mas_codigo;
-";
+    mascotas ON citas.cit_mascota = mascotas.mas_codigo
+WHERE 
+    citas.cit_situacion = 1;";
 
         $resultado = self::servir($sql);
         return $resultado;
     }
-
+ 
     public function buscar()
     {
         $sql = "SELECT * from citas where cit_situacion = 1 ";
@@ -61,11 +62,11 @@ INNER JOIN
             $sql .= " and cit_pais like '%$this->cit_pais%'";
         }
         if ($this->cit_cliente != '') {
-            $sql .= " and cit_cliente like '%$this->cit_cliente%' ";
+            $sql .= " and cit_cliente = $this->cit_cliente ";
         }
 
         if ($this->cit_mascota != '') {
-            $sql .= " and cit_mascota like '%$this->cit_mascota%'";
+            $sql .= " and cit_mascota = $this->cit_mascota";
         }
 
 

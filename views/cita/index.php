@@ -14,13 +14,13 @@ $mascotas = $mascota->buscar();
     <h1 class="text-center">REGISTRO DE CITAS</h1>
     <div class="row justify-content-center mb-3">
         <form class="col-lg-8 border bg-light p-3">
-            <input type="hidden" name="cli_codigo" id="cli_codigo">
+            <input type="hidden" name="cit_codigo" id="cit_codigo">
 
             <div class="row">
                 <div class="col mb-3">
                     <div class="col">
                         <label for="cit_fecha">Fecha de la Cita</label>
-                        <input type="date" name="cit_fecha" id="cit_fecha" class="form-control" required>
+                        <input type="datetime-local" name="cit_fecha" id="cit_fecha" class="form-control" required>
                     </div>
                 </div>
                 <div class="col mb-3">
@@ -35,8 +35,8 @@ $mascotas = $mascota->buscar();
             <div class="row">
 
             <div class="col form-group mb-3">
-                    <label for="cliente_nombre">Nombre del Cliente</label>
-                    <select name="cliente_nombre" id="cliente_nombre" class="form-control" required>
+                    <label for="cit_cliente">Nombre del Cliente</label>
+                    <select name="cit_cliente" id="cit_cliente" class="form-control" required>
                         <option value="">SELECCIONE...</option>
                         <?php foreach ($clientes as $cliente) : ?>
                             <option value="<?= $cliente['cli_codigo'] ?>"> <?= $cliente['cli_nombre'] ?></option>
@@ -45,8 +45,8 @@ $mascotas = $mascota->buscar();
                 </div>
 
                 <div class="col form-group mb-3">
-                    <label for="mascota_nombre">Nombre de la Mascota</label>
-                    <select name="mascota_nombre" id="mascota_nombre" class="form-control" required>
+                    <label for="cit_mascota">Nombre de la Mascota</label>
+                    <select name="cit_mascota" id="cit_mascota" class="form-control" required>
                         <option value="">SELECCIONE...</option>
                         <?php foreach ($mascotas as $mascota) : ?>
                             <option value="<?= $mascota['mas_codigo'] ?>"> <?= $mascota['mas_nombre'] ?></option>
@@ -84,10 +84,10 @@ $mascotas = $mascota->buscar();
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Fecha de la Cita</th>
-                        <th>hora</th>
-                        <th>Nnombre del Cliente</th>
-                        <th>Nombre de la Mascota</th>
+                        <th>Cliente</th>
+                        <th>Mascota</th>
+                        <th>Fecha</th>
+                        <th>Pais</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>

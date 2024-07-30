@@ -45,7 +45,7 @@ try {
             http_response_code(200);
             echo json_encode([
                 "mensaje" => $mensaje,
-                "codigo" => 1,
+                "codigo" => $codigo,
             ]);
             break;
         case 'GET':

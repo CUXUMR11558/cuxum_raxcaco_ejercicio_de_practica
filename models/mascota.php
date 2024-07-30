@@ -38,7 +38,7 @@ class mascota extends Conexion
             $sql .= " and mas_raza like '%$this->mas_raza%' ";
         }
         if ($this->mas_fecha_nacimiento != '') {
-            $sql .= " and mas_fecha_nacimiento = $this->mas_fecha_nacimiento";
+            $sql .= " and mas_fecha_nacimiento like '%$this->mas_fecha_nacimiento%'";
         }
 
         if ($this->mas_codigo != null) {
@@ -59,7 +59,7 @@ class mascota extends Conexion
 
     public function eliminar()
     {
-        $sql = "UPDATE mascotas SET mascota_situacion = 0 where mascota_codigo = $this->mas_codigo";
+        $sql = "UPDATE mascotas SET mas_situacion = 0 where mas_codigo = $this->mas_codigo";
 
         $resultado = self::ejecutar($sql);
         return $resultado;
